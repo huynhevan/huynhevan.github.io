@@ -1,5 +1,10 @@
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Rotten Classifier</h1>
-<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">.......</p>
+<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+  Source code can be found 
+  <a href ="https://github.com/johnli01/RottenClassifier"> here </a>
+  and our video summary 
+  <a href ="youtube.com"> here </a>
+</p>
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Summary</h1>
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
   In this project, we looked at various image transformations techniques to best create an accurate model while
@@ -17,30 +22,119 @@
 </p>
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Dataset</h1>
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
-  The dataset we used was from the Kaggle which can be found here: 
+  The dataset we used was from Kaggle which can be found here: 
   <a href ="https://www.kaggle.com/sriramr/fruits-fresh-and-rotten-for-classification"> dataset</a>.
   The dataset consists of around 16000 images of bananas, apples, and oranges of various rotten/fresh levels of
-  various image sizes. The image sizes were a challenge we wanted to try and address becuase given the time and 
-  hardware constrainsts, we had come up with sacrifices and compromises with accuracy vs. time spent training by 
+  various image sizes. The image sizes were a challenge we wanted to try and address because given the time and 
+  hardware constraints, we had come up with sacrifices and compromises with accuracy vs. time spent training by 
   manipulating the patch sizes used on the images and finding what crop sizes worked best for training.
+  <h2>Sample images</h2>
+  <img src="images/apple.png">
+  <img src="images/rotting-apple.png">
   
+  <br>
+  <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+    The data set did not just only contain varying image dimensions but also rotated images of the various fruits
+  to train on:
+  </p>
+  <img src="images/apple-rotated.png">
+  <img src="images/rotting-apple-rotated.png">
 
 </p>
-<h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Techniques</h1>
-<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">.......
-  <figure>
-    <img src="images/40.png" style="max-width: 300px;">
-    <figcaption><strong>image crop size 40px</strong></figcaption>
-  </figure>
-  <figure>
-    <img src="images/128.png" style="max-width: 300px;">
-    <figcaption><strong>image crop size 128px</strong></figcaption>
-  </figure>
-  <figure>
-    <img src="images/144.png" style="max-width: 300px;">
-    <figcaption><strong>image crop size 144px</strong></figcaption>
-  </figure>
 
+<h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Techniques</h1>
+<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+  With the data set, the dimensions of the images ranged from 100x100 - 400x400. Having differing dimensions became problematic
+  when applying filters which require all the width and height to be the consistent. To tackle this issue, we decided to scale-up 
+  all the images to 500x500, instead of scaling down. This way, the information from the images is retained regardless of the dimensions
+  and no data is being lost. After scaling all the images up to 500x500, we then can crop out certain dimensions from the images, in which
+  we tested with: 32x32, 128x128, 144x144, and 256x256. <br>
+
+  <div class="row">
+    <div class="column">
+      <img src="images/crop-32.png" style="max-width: 300px">
+      <figcaption><strong>image crop size 32px</strong></figcaption>
+    </div>
+    <div class="column">
+      <img src="images/crop-128.png" style="max-width: 300px">
+      <figcaption><strong>image crop size 128</strong></figcaption>
+    </div>
+  </div>
+  <div class="row">
+      <div class="column">
+        <img src="images/crop-144.png" style="max-width: 300px">
+        <figcaption><strong>image crop size 144</strong></figcaption>
+      </div>
+      <div class="column">
+        <img src="images/crop-256.png" style="max-width: 300px">
+        <figcaption><strong>image crop size 256</strong></figcaption>
+      </div>
+  </div>
+
+  <h2>32x32 Cropped Image</h2>
+  <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+    The cropped images were very zoomed into the fruit, thus it made it extremely difficult to differntiate dark spots
+    as part of the fruit or if it was actually rotting. It made it difficult to get an idea of the whole picture which
+    could explain the poor performance resulting in underfitting with a training accuracy of 45.3169% and testing accuracy
+    of 44.2222%:
+    <br>
+    <img src="images/40.png" style="max-width: 300px">
+    <br>
+    With an input image of 32x32, the number of neurons were 1,024.
+  </p>
+  <h2>128x128 Cropped Image</h2>
+  <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+    The cropped images this time was much larger compared to the 32x32 images, but only for image dimensions that
+    were originally smaller (ie: images that were 100x100, 200x200). The cropped images failed when original image dimensions
+    were on the larger scale like 400x400 which means that the drop image was only getting around 1/4th of the fruit. However,
+    by increasing the cropped image it substantially increased our accuracy, in which we were able to get a 71.9475% training accuracy
+    and 71.5715% testing accuracy:
+    <br>
+    <img src="images/128.png" style="max-width: 300px">
+    <br>
+    With an input image of 128x128, the number of neurons were 65,536.
+  </p>
+  <h2>144x144 Cropped Image</h2>
+  <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+    The cropped images this time was much larger compared to the 32x32 images, but only for image dimensions that
+    were originally smaller (ie: images that were 100x100, 200x200). The cropped images failed when original image dimensions
+    were on the larger scale like 400x400 which means that the drop image was only getting around 1/4th of the fruit. However,
+    by increasing the cropped image it substantially increased our accuracy, in which we were able
+    to get a 73.7455% training accuracy and 73.7213% testing accuracy:
+    <br>
+    <img src="images/144.png" style="max-width: 300px">
+    <br>
+    With an input image of 144x144, the number of neurons were 93,312.
+  </p>
+  <h2>256x256 Cropped Image</h2>
+  <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+    After viewing the cropped image, it was more apparent in viewing the entirety of the fruit. We had the assumption that
+    the this would perform the best in terms of training and testing accuracy. However, we stumbled upon a hardware limitation
+    where the memory requirement was more than our computers could handle.
+    <br>
+    With an input image of 256x256, the number of neurons were 524,288. Utilizing this many neurons required more memory than our computers
+    could handle in which we had to scale down and found that 144x144 was the max crop dimension we could use.
+  </p>
+
+</p>
+<h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Takeaways and Future Work</h1>
+<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+  This final project was very helpful in building our knowledge and understanding of machine learning in computer
+  visions. We were able to get more experience in dealing with custom data in PyTorch and manipulate data to 
+  have better accuracy while also factoring runtime. Future work in this is finding the time to train the model
+  with bigger image crops which will lead to a more accurate model as well as using data for other fruits. We can
+  also use real time image detection to test our model with fruits in our households. 
+</p>
+
+</p>
+<h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">References</h1>
+<p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+  Professor Redmond's iPynb tutorial for CNNs: 
+  <a href ="https://colab.research.google.com/drive/1OlM3vfZPYjl5acwcqgbcJtc7nPlIvs92#scrollTo=WB6ruCIU00tz"> here </a>
+  <br>
+  The dataset we used was from Sriam's Kaggle which can be found: 
+  <a href ="https://www.kaggle.com/sriramr/fruits-fresh-and-rotten-for-classification"> here</a>.
+</p>
 </p>
 
 
