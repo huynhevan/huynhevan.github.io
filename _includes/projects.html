@@ -2,8 +2,11 @@
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
   Source code can be found 
   <a href ="https://github.com/johnli01/RottenClassifier"> here </a>
-  and our video summary 
-  <a href ="youtube.com"> here </a>
+  and our video summary can be found below
+  <video width="320" height="240" controls>
+    <source src="videos/video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+  </video>
 </p>
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Summary</h1>
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
@@ -17,7 +20,7 @@
   final project to involve it. We wanted to choose a topic we could further advance in our free time, so we chose 
   a problem most households experience which is having their produce turn rotten. We also wanted to explore more 
   into the data aspect of ML, which is a very crucial part in getting a good model, by finding out ways to create 
-  a more accurate model by manipulating the dataset. Our project classifies different fruits and vegetables and 
+  a more accurate model by manipulating the dataset. Our project classifies different fruits and 
   also whether they are rotten or fresh using Convoluted Neural Networks.
 </p>
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Dataset</h1>
