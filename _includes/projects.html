@@ -12,7 +12,7 @@
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
   In this project, we looked at various image transformations techniques to best create an accurate model while
   also being reasonable in runtime. We also explored new PyTorch functions such as image tranformations and ones 
-  that allow you to load in custom data. We compared the various 
+  that allow you to load in custom data. We compared the various image transformations on the runtime and accuracy.
 </p>
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Problem Setup</h1>
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
@@ -21,7 +21,7 @@
   a problem most households experience which is having their produce turn rotten. We also wanted to explore more 
   into the data aspect of ML, which is a very crucial part in getting a good model, by finding out ways to create 
   a more accurate model by manipulating the dataset. Our project classifies different fruits and 
-  also whether they are rotten or fresh using Convoluted Neural Networks.
+  also whether they are rotten or fresh using Convoluted Neural Networks. 
 </p>
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Dataset</h1>
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
@@ -47,6 +47,10 @@
 
 <h1 {% if site.style == 'dark' %} class="text-white" {% endif %} style="font-size:45px">Techniques</h1>
 <p class="f4 mb-4 {% if site.style == 'dark' %}text-white{% else %}text-gray{% endif %}">
+  We used Professor Redmond's iPynb tutorial
+  on CNNs. We changed how the data was loaded using PyTorch libraries to load custom data. We also experimented
+  with different crop sizes of our training images while also changing filter dimensions in each layer to deal 
+  with those image sizes. We were able to see how the crop sizes affected training accuracy and runtime.  <br><br>
   With the data set, the dimensions of the images ranged from 100x100 - 400x400. Having differing dimensions became problematic
   when applying filters which require all the width and height to be the consistent. To tackle this issue, we decided to scale-up 
   all the images to 500x500, instead of scaling down. This way, the information from the images is retained regardless of the dimensions
